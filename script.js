@@ -162,3 +162,21 @@ console.log(error);
 loadVideos();
 
 });
+const API_KEY = "AIzaSyB9mKHbXmfJtSiX8r8S2WNstV307jGP_QQ";
+const CHANNEL_ID = "UCJliGU8JzBFUD_Eelyh71yQ";
+
+async function loadChannelStats() {
+  const url = `https://www.googleapis.com/youtube/v3/channels?part=statistics&id=${CHANNEL_ID}&key=${API_KEY}`;
+
+  const response = await fetch(url);
+  const data = await response.json();
+
+  if (data.items && data.items.length > 0) {
+    const totalViews = data.items[0].statistics.viewCount;
+
+    document.getElementById("totalViews").innerText =
+      Number(totalViews).toLocaleString();
+  }
+}
+
+loadChannelStats();
